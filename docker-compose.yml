@@ -1,0 +1,28 @@
+version: '3.8'
+
+networks:
+  test-docker:
+
+services:
+  back:
+    build:
+      context: .
+      dockerfile: ./bin/docker/Dockerfile-back
+    ports:
+      - "8050:80"
+    volumes:
+      - ./src/back:/var/www/html/back/
+      - ./web:/var/www/html/back/node_modules
+    networks: 
+      - test-docker
+
+  front:
+    build:
+      context: .
+      dockerfile: ./bin/docker/Dockerfile-front
+    ports:
+      - "3000:80"
+    volumes:
+      - ./src/front:/var/www/html
+    networks: 
+      - test-docker

@@ -1,0 +1,11 @@
+FROM node:14-alpine
+
+WORKDIR /var/www/html/
+
+COPY /src/back/ /var/www/html/
+
+COPY bin/docker/entrypoint-back.sh /tmp/
+
+RUN chmod 777 -R /tmp
+
+ENTRYPOINT ["sh", "/tmp/entrypoint-back.sh"]

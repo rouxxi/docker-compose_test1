@@ -1,0 +1,13 @@
+FROM php:7.3-apache
+
+RUN apt-get update \
+        && apt-get install -y curl gnupg \
+        &&  rm -rf /var/lib/apt/lists/*
+
+COPY src/front /var/www/html/
+COPY bin/docker/entrypoint-front.sh /tmp/
+
+RUN chmod 777 -R /var/www/html
+RUN chmod 777 -R /tmp
+
+ENTRYPOINT ["sh","/tmp/entrypoint-front.sh"]
